@@ -32,6 +32,7 @@ namespace Basket.API
             });
             services.AddControllers();
             services.AddScoped<IBasketServices, BasketServices>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basket.API", Version = "v1" });
