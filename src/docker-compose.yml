@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  catalogdb:
+    image: mcr.microsoft.com/mssql/server
+
+  basketdb:
+    image: mcr.microsoft.com/mssql/server
+
+
+  portainer:
+    image: portainer/portainer-ce
+
+  discountdb:
+    image: mcr.microsoft.com/mssql/server
+
+  
+
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+      
+  discount.api:
+    image: ${DOCKER_REGISTRY-}discountapi
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.API/Dockerfile
+
+volumes:
+  sql_data:
+  portainer_data:

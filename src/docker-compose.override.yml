@@ -1,0 +1,79 @@
+version: '3.4'
+
+services:
+  catalogdb:
+    container_name: catalogdb
+    restart: always
+    user: root
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Mohamad@1382
+    ports:
+      - "27017:27017"
+    volumes:
+      - sql_data:/var/opt/mssql/data
+
+  catalog.api:
+    container_name: catalog.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionSettings:ConnectionString=Data Source=localhost:27017;Initial Catalog=MicroservicesCatalogDb;User Id=sa;Password=Mohamad@1382;"
+    depends_on:
+      - catalogdb
+    ports:
+      - "8000:80"
+
+  basketdb:
+    container_name: basketdb
+    restart: always
+    user: root
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Mohamad@1382
+      
+    volumes:
+      - sql_data:/var/opt/mssql/data
+
+    ports:
+      - "6379:6379"
+
+  basket.api:
+    container_name: basket.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionSettings:ConnectionString=Data Source=localhost:6379;Initial Catalog=MicroservicesBasketDb;User Id=sa;Password=Mohamad@1382;"
+    depends_on:
+      - basketdb
+    ports:
+      - "8001:80"
+
+  portainer:
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
+      - portainer_data:/data  
+    ports:
+      -  9000:9000
+
+  discountdb:
+    user: root
+    container_name: discountdb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Mohamad@1382
+    volumes:
+      - sql_data:/var/opt/mssql/data
+
+    restart: always
+    ports:
+        - "5432:5432"
+ 
+  discount.api:
+    container_name: discount.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionSettings:ConnectionString=Data Source=localhost:5432;Initial Catalog=MicroservicesDiscountDb;User Id=sa;Password=Mohamad@1382;"
+    depends_on:
+      - discountdb
+    ports:
+      - "8002:80"
