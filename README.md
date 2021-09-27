@@ -5,7 +5,7 @@
 - SOLID architecture
 - FluentAPI
 - EntityFrameWorkCore
-- RabbtMQ
+- RabbitMQ
 - CQRS
 - Docker
 - Sql server
