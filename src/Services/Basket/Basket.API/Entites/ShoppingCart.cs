@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,9 @@ namespace Basket.API.Entites
 {
     public class ShoppingCart
     {
+        [Key]
+        public int Id { get; set; }
+
         public string UserName { get; set; }
 
         public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();

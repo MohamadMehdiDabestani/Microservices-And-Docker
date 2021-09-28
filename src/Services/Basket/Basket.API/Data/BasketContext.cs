@@ -1,7 +1,7 @@
 ﻿using Basket.API.Entites;
 using Microsoft.EntityFrameworkCore;
 
-namespace Basket.API.Data
+namespace Basket.API
 {
     public class BasketContext : DbContext
     {

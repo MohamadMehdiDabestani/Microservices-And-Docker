@@ -1,5 +1,4 @@
-﻿using Basket.API.Data;
-using Basket.API.Entites;
+﻿using Basket.API.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
@@ -14,7 +13,7 @@ namespace Basket.API.Repositories
     {
         private readonly BasketContext db;
 
-        public BasketServices(IDistributedCache redis, BasketContext db)
+        public BasketServices(BasketContext db)
         {
             this.db = db;
         }

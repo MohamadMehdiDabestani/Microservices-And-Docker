@@ -1,4 +1,3 @@
-using Basket.API.Data;
 using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using Discount.Grpc.Protos;
@@ -27,9 +26,10 @@ namespace Basket.API
         {
             services.AddControllers();
             services.AddScoped<IBasketServices, BasketServices>();
+            var connection = Configuration["DatabaseSettings:ConnectionString"];
             services.AddDbContext<BasketContext>(opt =>
             {
-                opt.UseSqlServer(Configuration["DatabaseSettings:ConnectionString"]);
+                opt.UseSqlServer(connection);
             });
             services.AddSwaggerGen(c =>
             {
