@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using Mapster;
 using MediatR;
 using Ordering.Application.Contracts.Infrastracture;
 using Ordering.Application.Contracts.Persistance;
@@ -14,19 +14,18 @@ namespace Ordering.Application.Features.Order.Command.CheckoutOrder
     class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, int>
     {
         private readonly IOrderRepo _repo;
-        private readonly Mapper _mapper;
         private readonly IEmailRepo _email;
 
-        public CheckoutOrderCommandHandler(IOrderRepo repo, Mapper mapper, IEmailRepo email)
+        public CheckoutOrderCommandHandler(IOrderRepo repo, IEmailRepo email)
         {
             _repo = repo;
-            _mapper = mapper;
             _email = email;
         }
 
         public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
-            var order = _mapper.Map<Ordring.Domain.Entities.Order>(request);
+
+            var order = request.Adapt<Ordring.Domain.Entities.Order>();
 
             var newOrder = await _repo.Add(order);
 
@@ -42,11 +41,12 @@ namespace Ordering.Application.Features.Order.Command.CheckoutOrder
             {
                 await _email.SendEmail(email);
             }
-            catch (Exception)
+            catch (System.Exception)
             {
 
                 throw;
             }
+            
         }
     }
 }

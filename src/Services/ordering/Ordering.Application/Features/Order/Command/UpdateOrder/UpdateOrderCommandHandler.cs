@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using Mapster;
 using MediatR;
 using Ordering.Application.Contracts.Persistance;
 using Ordering.Application.Exception;
@@ -14,12 +14,10 @@ namespace Ordering.Application.Features.Order.Command.UpdateOrder
     public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand>
     {
         private readonly IOrderRepo _repo;
-        private readonly Mapper _mapper;
 
-        public UpdateOrderCommandHandler(IOrderRepo repo, Mapper mapper)
+        public UpdateOrderCommandHandler(IOrderRepo repo)
         {
             _repo = repo;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
@@ -30,9 +28,10 @@ namespace Ordering.Application.Features.Order.Command.UpdateOrder
             {
                 throw new NotFoundException("Order" , request.Id);
             }
-            _mapper.Map(request, order , typeof(UpdateOrderCommand) , typeof(Ordring.Domain.Entities.Order));
 
-            await _repo.Update(order);
+            var orderUpdated = request.Adapt<Ordring.Domain.Entities.Order>();
+
+            await _repo.Update(orderUpdated);
             return Unit.Value;
         }
 

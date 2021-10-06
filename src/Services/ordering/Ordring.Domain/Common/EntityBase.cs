@@ -16,5 +16,6 @@ namespace Ordring.Domain.Common
 
         public DateTime? LastModifyedDate { get; set; }
 
+        public string CreatedBy { get; set; }
     }
 }

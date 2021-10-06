@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using Mapster;
 using MediatR;
 using Ordering.Application.Contracts.Persistance;
 using System;
@@ -13,18 +13,17 @@ namespace Ordering.Application.Features.Order.Query.GetOrderList
     public class GetOrderListQueryHandler : IRequestHandler<GetOrderList, List<OrderVm>>
     {
         private readonly IOrderRepo _order;
-        private readonly IMapper _mapper;
+        
 
-        public GetOrderListQueryHandler(IOrderRepo order, IMapper mapper)
+        public GetOrderListQueryHandler(IOrderRepo order)
         {
             _order = order;
-            _mapper = mapper;
         }
 
         public async Task<List<OrderVm>> Handle(GetOrderList request, CancellationToken cancellationToken)
         {
             var list = await _order.GetOrderByUsername(request.UserName);
-            return _mapper.Map<List<OrderVm>>(list);
+            return list.Adapt<List<OrderVm>>();
         }
 
     }

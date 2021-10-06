@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Models
 {
-    class EmailSettings
+   public class EmailSettings
     {
         public string ApiKey { get; set; }
 

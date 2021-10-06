@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Ordering.Application.Contracts.Persistance;
 using Ordering.Application.Exception;
 using System;
@@ -14,12 +13,10 @@ namespace Ordering.Application.Features.Order.Command.DeleteOrder
     class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand>
     {
         private readonly IOrderRepo _order;
-        private readonly Mapper _mapper;
 
-        public DeleteOrderCommandHandler(IOrderRepo order, Mapper mapper)
+        public DeleteOrderCommandHandler(IOrderRepo order)
         {
             _order = order;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)

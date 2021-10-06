@@ -1,7 +1,7 @@
 ﻿
 namespace Ordering.Application.Models
 {
-    class Email
+   public class Email
     {
         public string To { get; set; }
 

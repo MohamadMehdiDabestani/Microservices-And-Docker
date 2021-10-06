@@ -10,7 +10,5 @@ namespace Ordering.Application.Features.Order.Command.DeleteOrder
     public class DeleteOrderCommand : IRequest
     {
         public int Id { get; set; }
-
-
     }
 }

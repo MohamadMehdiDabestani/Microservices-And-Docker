@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Contracts.Infrastracture
 {
-    interface IEmailRepo
+    public interface IEmailRepo
     {
         Task<bool> SendEmail(Email email);
     }
